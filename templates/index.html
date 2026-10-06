@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A little birthday gift inspiration, picked with lots of love.">
+  <title>A Little Birthday Magic</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="../static/script.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#top"><span class="flower">✳</span> a little <b>birthday magic</b></a><a class="wishlist" href="#gifts">♡ My wishlist <span id="count">0</span></a></header>
+  <main id="top">
+    <section class="hero"><div class="hero-copy"><p class="eyebrow">✦ A day all about you</p><h1>Make a wish.<br><em>Pick some magic.</em></h1><p>Your birthday is the perfect excuse to choose something lovely. Here are a few little things we think you’ll love.</p><a class="button" href="#gifts">Find your happy <span>↘</span></a><p class="scribble">you deserve the good stuff ♡</p></div><div class="hero-picture"><div class="sun"></div><div class="cake"><i></i><i></i><i></i><span>✿　✿　✿</span></div><div class="plate"></div><div class="giftbox">✦</div><b class="wish">make a<br>wish!</b></div><small class="hero-caption">A little list of lovely things, just for you</small></section>
+    <section class="catalog" id="gifts"><div class="section-head"><div><p class="eyebrow">✳ The birthday edit</p><h2>A little something <em>special</em></h2></div><p>Thoughtful gifts. Big birthday energy.</p></div>
+      <div class="toolbar"><div class="filters" role="group" aria-label="Filter gifts">{% for category in ['All','Flowers','Sweets','Cozy','Fragrance','Jewelry'] %}<button class="filter {% if loop.first %}active{% endif %}" data-category="{{ category }}">{{ 'Everything' if category == 'All' else category }}</button>{% endfor %}</div><label class="search">⌕ <input id="search" type="search" placeholder="Find a little something" aria-label="Search gifts"></label></div>
+      <div class="grid" id="gift-grid">{% for gift in gifts %}<article class="card" data-category="{{ gift.category }}" data-name="{{ gift.name|lower }}"><button class="art" data-open="{{ gift.id }}" aria-label="See {{ gift.name }} details"><img src="{{ url_for('static', filename='images/' ~ gift.image) }}" alt="Illustration of {{ gift.name }}"><span class="tag">A little joy</span></button><div class="item-head"><div><small>{{ gift.category }}</small><h3>{{ gift.name }}</h3></div><button class="heart" data-favorite="{{ gift.id }}" aria-label="Add {{ gift.name }} to wishlist" aria-pressed="false">♡</button></div><div class="item-foot"><b>${{ gift.price }}</b><button class="details" data-open="{{ gift.id }}">A closer look ↗</button></div><p class="description" hidden>{{ gift.description }}</p></article>{% endfor %}</div><p id="empty" hidden>No little somethings found. Try another search.</p>
+    </section>
+    <section class="wish-banner"><span>✿</span><p>Growing up is optional.<br><em>Making a wish is not.</em></p><span>✦</span></section>
+  </main>
+  <footer>Made with a little extra love ♡ <span>It’s your day. Make it lovely.</span></footer>
+  <button id="surprise" class="surprise">✦ Surprise me</button>
+  <dialog id="details"><button class="close" aria-label="Close">×</button><img id="dialog-image" alt=""><div><p class="eyebrow" id="dialog-category"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p><div class="dialog-foot"><b id="dialog-price"></b><button class="button" id="dialog-favorite">Add to wishlist ♡</button></div></div></dialog>
+</body>
+</html>
